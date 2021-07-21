@@ -1,14 +1,105 @@
- <div style="font-family:sans-serif; color: #545454; line-height:1.5em;">
-     <h1>
-         <a href="https://ebooks.gramedia.com/">
-             <img src="https://ebooks.gramedia.com/css/images/logo-gramedia-digital.png" alt="Gramedia Digital">
-         </a>
-     </h1>
-     <h2>{{ .Title }}</h2>
-     <p> {{ .Body }} </p>
-     <p> {{ .Footer }} </p>
-     <p>
-         Jika ada pertanyaan mengenai email ini, silahkan <a href="mailto:customercare@gramedia.com">menghubungi kami</a>
-     </p>
-     <p>Salam,<br> Tim Gramedia Digital</p>
- </div>
+<body style="padding: 20px 1%;background: #EEEFF3;margin: 0;">
+<div style="font-family: Arial, Helvetica, sans-serif;">
+    <h2>{{ .Title }}</h2>
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <img style="width: 110px;float: left" src="https://ebooks.gramedia.com/css/images/logo-gramedia-digital.png" />
+                <p style="float: right;font-size: 1.2em;margin: 0;padding: 0;font-weight: 600;padding: 5px 10px 0 0">Receipt</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top:10px; color: #3D3D3D; border-collapse: collapse; line-height: 150%;">
+                <table style="width: 100%;background: white; margin-top: 5px;border: solid 1.2pt #efefef;border-bottom: 0;border-radius: 10px;" cellspacing="0">
+                    <tr>
+                        <td style="border-bottom: solid 1.2pt #efefef;border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;">
+                            <label style="margin: 0;padding: 0;font-weight: 500;font-size: 1em;color: #a3a3a3;">Gramedia Digital Account</label>
+                            <p style="margin:0;padding:0;font-size: 1.16em;">{{ .Receiver }}</p>
+                        </td >
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;">
+                            <label style="margin: 0;padding: 0;font-weight: 500;font-size: 1em;color: #a3a3a3;">Receipt date</label>
+                            <p style="margin:0;padding:0;font-size: 1.16em;">{{ .TransactionDate }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;">
+                            <label style="margin: 0;padding: 0;font-weight: 500;font-size: 1em;color: #a3a3a3;">Payment method</label>
+                            <p style="margin:0;padding:0;font-size: 1.16em;">{{ .PaymentMethod }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;">
+                            <label style="margin: 0;padding: 0;font-weight: 500;font-size: 1em;color: #a3a3a3;">Order number</label>
+                            <p style="margin:0;padding:0;font-size: 1.16em;">{{ .OrderNumber }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: solid 1.2pt #efefef;border-radius:10px;padding: 12px 22px;line-height: 1.5;vertical-align: top;" width="500px">
+                            <label style="margin: 0;padding: 0;color: #a3a3a3;font-size: 1em;float:left;">TOTAL</label>
+                            <p style="margin:0;padding:0;font-size: 1.5em;font-weight: 600;float: right;padding-top: 20px">
+                                {{ .CurrencyCode }} {{ .GrandTotal }}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top: 10px; color: #3D3D3D; line-height: 150%;">
+                <table style="background:white; width: 100%; margin-top: 5px;border: solid 1.2pt #efefef;border-bottom: 0;border-radius:10px" cellspacing="0">
+                    <tr>
+                        <th colspan="2" style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;font-size:1em;">
+                            <p style="float: left;font-weight: 600;margin:0;padding: 0;font-size: 1em;">Product</p>
+                        </th>
+                        <th style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;font-size:1em;">
+                            <p style="font-weight: 600;float: right;margin:0;padding: 0;font-size: 1em">Price</p>
+                        </th>
+                    </tr>
+
+                    <!-- loop item start -->
+                    {{range $y, $x := .Items }}
+                    <tr>
+                        <td style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;width: 25%;">
+                            <p style="margin:0;padding:0;font-size:1em">{{ $x.Name }}</p>
+                        </td>
+                        <td style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;width: 30%;">
+                            <p style="margin:0;padding:0;font-size:1em;font-weight:600;text-align: right;">
+                                {{ $x.Price}} </p>
+                        </td >
+                    </tr>
+                    {{end}}
+                    <!-- loop item end -->
+                    <tr>
+                        <td colspan="2" style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;width: 50%;text-align: right">
+                            <p style="float: left;color: #a3a3a3;margin: 0;padding: 0;font-size: 1em">TOTAL</p>
+                        </td>
+                        <td style="border-bottom: solid 1.2pt #efefef;padding: 12px 22px;line-height: 1.5;vertical-align: top;width: 50%;text-align: right">
+                            <p style="text-align: right;font-weight: 600;margin: 0;padding: 0;font-size: 1em">
+                                {{ .CurrencyCode }}  {{ .OrderTotal }}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p> {{ .Footer }} </p>
+    <div style="text-align: left;margin-top: 20px;line-height: 1.7" class="footer">
+        <p style="font-size: .85em;color: #717171;font-weight: 300;margin:0;padding:0;">Please do not reply this email.</p>
+        <p style="font-size: .85em;color: #717171;font-weight: 300;margin:0;padding:0;">If you have any question about your receipt, visit our
+            <a href="https://ebooks.gramedia.com/id/faq" style="text-decoration: none; font-size: .85em;color:#019ade">FAQ page</a></p>
+    </div>
+    <div style="text-align: center;margin-top: 30px" class="footer">
+        <ul style="margin:0;padding:0;">
+            <li style="display: inline-block;"><a href="https://ebooks.gramedia.com/id/terms" style="text-decoration: none; font-size: .85em;color:#019ade;margin:0;padding:0;">Terms and conditions</a></li>
+            <li style="display: inline-block;">&sdot;</li>
+            <li style="display: inline-block;"><a href="https://ebooks.gramedia.com/id/privacy" style="text-decoration: none; font-size: .85em;color:#019ade;margin:0;padding:0;">Privacy policy</a></li>
+        </ul>
+    </div>
+    <div style="text-align: center;margin-top: 20px">
+        <p style="color: #717171;font-weight: 300;font-size: .85em;">Copyright &copy; 2010-2017 Gramedia Digital Nusantara<br>All rights reserved</p>
+    </div>
+</div>
+</body>

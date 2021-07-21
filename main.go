@@ -16,7 +16,10 @@ func main() {
 	fmt.Println("======Send Email Service====")
 
 	route := gin.Default()
-	route.POST("/user-validation", services.UserValidationEmailHandler)
+	route.POST("/user-validation", services.UserValidation)
+	route.POST("/receipt", services.Receipt)
+	route.POST("/send-gift", services.SendGift)
+	route.POST("/reset-password", services.ResetPassword)
+	route.POST("/reminder", services.Reminder)
 	route.Run("0.0.0.0:9999")
-
 }
