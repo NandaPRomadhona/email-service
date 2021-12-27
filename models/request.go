@@ -22,7 +22,7 @@ type Item struct {
 }
 
 type Order struct{
-	OrderNumber 	int32		`json:"order_number"`
+	OrderNumber 	int64		`json:"order_number"`
 	TransactionDate	time.Time	`json:"transaction_date"`
 	PaymentMethod	string		`json:"payment_method"`
 	Items			[]Item		`json:"items"`

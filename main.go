@@ -21,5 +21,5 @@ func main() {
 	route.POST("/send-gift", services.SendGift)
 	route.POST("/reset-password", services.ResetPassword)
 	route.POST("/reminder", services.Reminder)
-	route.Run("0.0.0.0:9999")
+	route.Run("0.0.0.0:9090")
 }

@@ -188,7 +188,41 @@ type ResetPassReqEmail struct {
 }
 
 func ResetPassword(c *gin.Context)  {
-	
+	var req ResetPassReqEmail
+
+	// validation for request body
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	from = req.Sender
+	r := NewEmailReq(from, []string{req.Receiver}, req.Subject, req.Title)
+	err := r.ParseTemplate("templates/reset-password.html", req)
+	if err == nil{
+		ok, err := r.SendEmail()
+		if err != nil{
+			fmt.Println("Error Send Mail: ", err)
+			c.JSON(http.StatusBadGateway, gin.H{
+				"status":  "FAILED",
+				"message": err,
+			})
+		}else{
+			fmt.Println(ok)
+			// Return response
+			c.JSON(http.StatusOK, gin.H{
+				"status": "SUCCESS",
+				"message": "Email Sent!!!",
+			})
+		}
+	}else {
+		fmt.Println("Error Load Template: ", err)
+		c.JSON(http.StatusBadGateway, gin.H{
+			"status": "FAILED",
+			"message": err,
+		})
+	}
 }
 
 
